@@ -9,11 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ca.bc.gov</groupId>
-	<artifactId>ls30</artifactId>
+	<artifactId>wildfires</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>ls30</name>
-	<description>Assignment for LS30 Full Stack Developer</description>
+	<name>wildfires</name>
+	<description>Assignment for IS30 Full Stack Developer</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

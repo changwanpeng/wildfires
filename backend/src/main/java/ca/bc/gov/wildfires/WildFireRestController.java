@@ -1,4 +1,4 @@
-package ca.bc.gov.ls30;
+package ca.bc.gov.wildfires;
 
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.net.http.HttpResponse;
 
 @RestController
 @RequestMapping("/api")
-public class Ls30RestController {
+public class WildFireRestController {
 	@GetMapping(path = "/openmaps", produces = MediaType.APPLICATION_JSON_VALUE)
 	public JsonNode getOpenMaps(@RequestParam(defaultValue = "all") String filter) throws Exception {
 		String requestURL = (filter.equals("geo"))

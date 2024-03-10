@@ -1,5 +1,7 @@
 package ca.bc.gov.wildfires;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -15,12 +17,13 @@ public class WildFireRestControllerTests {
 
 	@Test
 	public void getOpenMaps() throws Exception {
-		mvc.perform(MockMvcRequestBuilders
+		assertThat(mvc.perform(MockMvcRequestBuilders
 			.get("/api/openmaps")
 			.accept(MediaType.APPLICATION_JSON))
 			.andReturn()
 	        .getResponse()
 	        .getContentAsString()
-	        .contains("features");
+	        .contains("features"))
+		.isEqualTo(true);
 	}
 }

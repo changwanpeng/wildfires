@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
+import CsvDownloadButton from 'react-json-to-csv';
 import { Table } from "reactstrap";
 
 function App() {
@@ -13,6 +14,54 @@ function App() {
   const start = page * pageSize;
   const end = page === totalPages - 1 ? data.features.length : (page + 1) * pageSize;
   const features = data.features && data.features.slice(start, end);
+  const headers = [
+    "ID",
+    "Coordinates",
+    "Fire Number",
+    "Fire Year",
+    "Response Type",
+    "Ignition Date",
+    "Fire Out Date",
+    "Fire Status",
+    "Fire Cause",
+    "Fire Centre",
+    "Zone",
+    "Fire ID",
+    "Fire Type",
+    "Incident Name",
+    "Geographic Description",
+    "Latitude",
+    "Longtitude",
+    "Current Size",
+    "Fire URL",
+    "Feature Code",
+    "Object ID"
+  ];
+  const cvsData = data.features && data.features.map(feature => {
+    return {
+      "ID": feature.id,
+      "Coordinates": `(${feature.geometry.coordinates.join(', ')})`,
+      "Fire Number": feature.properties.FIRE_NUMBER,
+      "Fire Year": feature.properties.FIRE_YEAR,
+      "Response Type": feature.properties.RESPONSE_TYPE_DESC,
+      "Ignition Date": feature.properties.IGNITION_DATE,
+      "Fire Out Date": feature.properties.FIRE_OUT_DATE,
+      "Fire Status": feature.properties.FIRE_STATUS,
+      "Fire Cause": feature.properties.FIRE_CAUSE,
+      "Fire Centre": feature.properties.FIRE_CENTRE,
+      "Zone": feature.properties.ZONE,
+      "Fire ID": feature.properties.FIRE_ID,
+      "Fire Type": feature.properties.FIRE_TYPE,
+      "Incident Name": feature.properties.INCIDENT_NAME,
+      "Geographic Description": feature.properties.GEOGRAPHIC_DESCRIPTION,
+      "Latitude": feature.properties.LATITUDE,
+      "Longtitude": feature.properties.LONGITUDE,
+      "Current Size": feature.properties.CURRENT_SIZE,
+      "Fire URL": feature.properties.FIRE_URL,
+      "Feature Code": feature.properties.FEATURE_CODE,
+      "Object ID": feature.properties.OBJECTID
+    }
+  });
 
   const queryParams = () => {
     let query = [];
@@ -85,6 +134,8 @@ function App() {
         ))
       }
       </div>
+      <p></p>
+      <CsvDownloadButton data={cvsData} delimiter="," headers={headers} />
       <p><br /><br /></p>
       <Table bordered hover>
         <thead>

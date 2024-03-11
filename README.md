@@ -1,7 +1,11 @@
 # wildfires
 
-Install virtualbox vagrant vagrant-manager (for example on MacOS)
+Install virtualbox vagrant vagrant-manager
+(MacOS)
 > brew install --cask virtualbox vagrant vagrant-manager
+(Windows: the restart of terminal shell or windows may be required)
+> winget install Oracle.VirtualBox
+> winget install Hashicorp.Vagrant
 
 Local Vagrant Setup:
 
@@ -10,8 +14,8 @@ Local Vagrant Setup:
 2. vagrant up
 3. vagrant ssh
 4. cd /wildfires/backend
-5. backend> ./mvnw test
-6. backend>./mvnw spring-boot:run &
+5. backend> mvn test
+6. backend> mvn spring-boot:run &
 7. cd /wildfires/frontend
 8. frontend> rm -rf node_modules
 9. frontend> npm install

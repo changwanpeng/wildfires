@@ -4,7 +4,9 @@ import { Table } from "reactstrap";
 
 function App() {
   const [data, setData] = useState({});
-  const [filter, setFilter] = useState("all");
+  const [geoDesc, setGeoDesc] = useState(["",""]);
+  const [fireCause, setFireCause] = useState(["",""]);
+  const [fireStatus, setFireStatus] = useState(["",""]);
   const [pageSize, setPageSize] = useState(100);
   const [page, setPage] = useState(0);
   const totalPages = Math.ceil(data.features && data.features.length / pageSize) || 0;
@@ -12,8 +14,25 @@ function App() {
   const end = page === totalPages - 1 ? data.features.length : (page + 1) * pageSize;
   const features = data.features && data.features.slice(start, end);
 
+  const queryParams = () => {
+    let query = [];
+    if (geoDesc && geoDesc[0] && geoDesc[1]) {
+      let queryString = `GEOGRAPHIC_DESCRIPTION${geoDesc[0]}'${geoDesc[1]}'`;
+      query.push(`geoDesc=${encodeURIComponent(queryString)}`);
+    };
+    if (fireCause && fireCause[0] && fireCause[1]) {
+      let queryString = `FIRE_CAUSE${fireCause[0]}'${fireCause[1]}'`;
+      query.push(`fireCause=${encodeURIComponent(queryString)}`);
+    };
+    if (fireStatus && fireStatus[0] && fireStatus[1]) {
+      let queryString = `FIRE_STATUS${fireStatus[0]}'${fireStatus[1]}'`;
+      query.push(`fireStatus=${encodeURIComponent(queryString)}`);
+    };
+    return (query?.length) ? '?' + query.join('&'): '';
+  };
+
   useEffect(() => {
-    fetch("/api/openmaps?filter=" + filter)
+    fetch("/api/openmaps" + queryParams())
       .then(response => response.json())
       .then( data => {
           setData(data);
@@ -25,14 +44,32 @@ function App() {
   return (
     <div>
       <h2 className="bold">BC Wildfires</h2>
-      <span>Filter by type: </span>      
-      <select value={filter} onChange={e => { setFilter(e.target.value); setPage(0);}}>
-        <option value="all">All</option>
-        <option value="geo">Geo</option>
-        <option value="fire">Fire</option>
+      <div>Geographic Description:
+      <select id="geoDescSelect" value={geoDesc[0]} onChange={e => { setGeoDesc([e.target.value, geoDesc[1]]); setPage(0);}}>
+        <option value="">--</option>
+        <option value="=">Equal</option>
+        <option value="<>">Not Equal</option>
       </select>
-      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page Size: </span>
-      <select value={pageSize} onChange={e => {setPageSize(e.target.value); setPage(0);}}>
+      <input id="geoDescInput" type="text" value={geoDesc[1]} onChange={e => { setGeoDesc([geoDesc[0], e.target.value]); setPage(0);}} />
+      </div>
+      <div>Fire Cause:
+      <select id="fireCauseSelect" value={fireCause[0]} onChange={e => { setFireCause([e.target.value, fireCause[1]]); setPage(0);}}>
+      <option value="">--</option>
+        <option value="=">Equal</option>
+        <option value="<>">Not Equal</option>
+      </select>
+      <input id="fireCauseInput" type="text" value={fireCause[1]} onChange={e => { setFireCause([fireCause[0], e.target.value]); setPage(0);}} />
+      </div>
+      <div>Fire Status:
+      <select id="fireStatusSelect" value={fireStatus[0]} onChange={e => { setFireStatus([e.target.value, fireStatus[1]]); setPage(0);}}>
+      <option value="">--</option>
+        <option value="=">Equal</option>
+        <option value="<>">Not Equal</option>
+      </select>
+      <input id="fireStatusInput" type="text" value={fireStatus[1]} onChange={e => { setFireStatus([fireStatus[0], e.target.value]); setPage(0);}} />
+      </div>
+      <div>Page Size:
+      <select id="pageSizeSelect" value={pageSize} onChange={e => {setPageSize(e.target.value); setPage(0);}}>
         {
           [100, 200, 300, 400, 500, 1000].map((size, index) => (
             <option key={index} value={size}>{size}</option>
@@ -47,6 +84,7 @@ function App() {
             <button key={pageIndex} onClick={e => setPage(pageIndex)}>{pageIndex+1} </button>
         ))
       }
+      </div>
       <p><br /><br /></p>
       <Table bordered hover>
         <thead>

@@ -16,14 +16,15 @@
 8. frontend> rm -rf node_modules
 9. frontend> npm install
 10. frontend> npm start &
-11. web brower test: http://localhost:8000
+11. test web brower: http://localhost:8000
 # vagrant VM (ubuntu) end
 
 # Install chromedriver and the following line need to be changed for automation.
     # (ResultPageTest.java)
     String driverpath="/Users/mchang/bin/chromedriver";
-11. (local machine) wildfires> cd automation
-12. automation> mvn test
+1. (local machine) wildfires> cd automation
+2. automation> mvn test
 
 # How to query the database to find out how many requests have been made against the API:
-
+The application is writing its log to stdout that can be easily connected to a log database, like Elasticsearch, and then count the number of requests. The log statement in WildFireRestController:
+  System.out.println("The request URL of the endpoint '/api/openmaps' is " + requestURL); //Line 43

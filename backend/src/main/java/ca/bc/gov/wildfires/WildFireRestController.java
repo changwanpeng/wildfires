@@ -40,6 +40,7 @@ public class WildFireRestController {
 				: baseURL + "&cql_filter=" + URLEncoder.encode(queryParams.toString(), "UTF-8");
 		HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(requestURL)).build();
 		HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+		System.out.println("The request URL of the endpoint '/api/openmaps' is " + requestURL);
 		return new ObjectMapper().readTree(response.body());
 	}
 }

@@ -44,27 +44,27 @@ function App() {
   return (
     <div>
       <h2 className="bold">BC Wildfires</h2>
-      <div>Geographic Description:
+      <div>Geographic Description 
       <select id="geoDescSelect" value={geoDesc[0]} onChange={e => { setGeoDesc([e.target.value, geoDesc[1]]); setPage(0);}}>
         <option value="">--</option>
-        <option value="=">Equal</option>
-        <option value="<>">Not Equal</option>
+        <option value="=">=</option>
+        <option value="<>">!=</option>
       </select>
       <input id="geoDescInput" type="text" value={geoDesc[1]} onChange={e => { setGeoDesc([geoDesc[0], e.target.value]); setPage(0);}} />
       </div>
-      <div>Fire Cause:
+      <div>Fire Cause 
       <select id="fireCauseSelect" value={fireCause[0]} onChange={e => { setFireCause([e.target.value, fireCause[1]]); setPage(0);}}>
       <option value="">--</option>
-        <option value="=">Equal</option>
-        <option value="<>">Not Equal</option>
+        <option value="=">=</option>
+        <option value="<>">!=</option>
       </select>
       <input id="fireCauseInput" type="text" value={fireCause[1]} onChange={e => { setFireCause([fireCause[0], e.target.value]); setPage(0);}} />
       </div>
-      <div>Fire Status:
+      <div>Fire Status 
       <select id="fireStatusSelect" value={fireStatus[0]} onChange={e => { setFireStatus([e.target.value, fireStatus[1]]); setPage(0);}}>
       <option value="">--</option>
-        <option value="=">Equal</option>
-        <option value="<>">Not Equal</option>
+        <option value="=">=</option>
+        <option value="<>">!=</option>
       </select>
       <input id="fireStatusInput" type="text" value={fireStatus[1]} onChange={e => { setFireStatus([fireStatus[0], e.target.value]); setPage(0);}} />
       </div>

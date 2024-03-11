@@ -39,7 +39,7 @@ function App() {
           console.log({pageSize, page, totalPages, start, end});
         }
       )
-  });
+  }, [geoDesc, fireCause, fireStatus]);
 
   return (
     <div>

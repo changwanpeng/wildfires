@@ -11,7 +11,7 @@ import org.openqa.selenium.By;
 import java.time.Duration;
 
 public class ResultPageTest {
-    public String baseurl="http://localhost:8000/";
+    public String baseurl="http://localhost:3000/";
     public WebDriver driver;
     String driverpath="/Users/mchang/bin/chromedriver";
     String expectedPageTitleText = "BC Wildfires";

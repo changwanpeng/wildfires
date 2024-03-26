@@ -29,7 +29,7 @@
 The application is writing its log to stdout that can be easily connected to a log database, like Elasticsearch, and then count the number of requests. The log statement in WildFireRestController:
   System.out.println("The request URL of the endpoint '/api/openmaps' is " + requestURL); //Line 43
 
-# Docker
+# Dockers
 > cd backend
 > docker pull openjdk
 > docker build . -t backendspringapp
@@ -38,3 +38,5 @@ The application is writing its log to stdout that can be easily connected to a l
 > docker pull node
 > docker build . -t frontendreactapp
 > docker run --rm -it -p 8000:3000/tcp frontendreactapp
+# Docker compose
+> docker compose up

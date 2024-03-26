@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  frontend:
+    image: node:latest
+    ports:
+      - "8000:3000"
+    volumes:
+      - ./frontend:/app/wildfires/frontend
+    working_dir: /app/wildfires/frontend
+    command: npm start
+
+  backend:
+    image: openjdk:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend:/app/wildfires/backend
+    working_dir: /app/wildfires/backend
+    command: ./mvnw spring-boot:run
